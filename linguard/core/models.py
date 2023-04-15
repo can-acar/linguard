@@ -37,7 +37,7 @@ class Interface(YamlAble):
 
     def __init__(self, name: str, description: str, gw_iface: str, ipv4_address: str, listen_port: int, auto: bool,
                  on_up: List[str], on_down: List[str], uuid: str = "", private_key: str = "",
-                 public_key: str = "", peers: "PeerDict" = None):
+                 public_key: str = "", allowed_ips=List[str], peers: "PeerDict" = None):
         self.name = name
         self.gw_iface = gw_iface
         self.description = description
@@ -46,6 +46,7 @@ class Interface(YamlAble):
         self.auto = auto
         self.on_up = on_up
         self.on_down = on_down
+        self.allowed_ips = allowed_ips
         self.uuid = uuid or gen_uuid().hex
         self.peers = peers or PeerDict()
         for peer in self.peers.values():
@@ -74,7 +75,8 @@ class Interface(YamlAble):
             "auto": self.auto,
             "on_up": self.on_up,
             "on_down": self.on_down,
-            "peers": self.peers
+            "peers": self.peers,
+            "allowed_ips": self.allowed_ips,
         }
 
     @classmethod
@@ -115,7 +117,7 @@ class Interface(YamlAble):
         for peer in self.peers.values():
             peers += (f"\n[Peer]\n"
                       f"PublicKey = {peer.public_key}\n"
-                      f"AllowedIPs = {peer.ipv4_address}\n")
+                      f"AllowedIPs = {peer.allowed_ips | peer.ipv4_address}\n")
         return iface + peers
 
     def save(self):

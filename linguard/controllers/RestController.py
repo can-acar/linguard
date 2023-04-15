@@ -43,15 +43,9 @@ class RestController:
     def add_iface(form):
         on_up = str_to_list(form.on_up.data)
         on_down = str_to_list(form.on_down.data)
-        iface = Interface(name=form.name.data,
-                          description=form.description.data,
-                          gw_iface=form.gateway.data,
-                          ipv4_address=form.ipv4.data,
-                          listen_port=form.port.data,
-                          auto=form.auto.data,
-                          on_up=on_up,
-                          on_down=on_down,
-                          allowed_ips=form.allowed_ips.data)
+        iface = Interface(name=form.name.data, description=form.description.data, gw_iface=form.gateway.data,
+                          ipv4_address=form.ipv4.data, listen_port=form.port.data, auto=form.auto.data, on_up=on_up,
+                          on_down=on_down)
         interfaces[iface.uuid] = iface
         interfaces.sort()
         config_manager.save()

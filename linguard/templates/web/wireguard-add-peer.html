@@ -31,9 +31,9 @@
                                   Error in field <strong>{{ form.name.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
-                            {% for error in form.auto.errors %}
+                            {% for error in form.nat.errors %}
                                 <div class="alert alert-danger" role="alert">
-                                  Error in field <strong>{{ form.auto.label.text }}</strong>: {{ error }}
+                                  Error in field <strong>{{ form.nat.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
                             {% for error in form.description.errors %}
@@ -41,9 +41,9 @@
                                   Error in field <strong>{{ form.description.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
-                            {% for error in form.gateway.errors %}
+                            {% for error in form.interface.errors %}
                                 <div class="alert alert-danger" role="alert">
-                                  Error in field <strong>{{ form.gateway.label.text }}</strong>: {{ error }}
+                                  Error in field <strong>{{ form.interface.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
                             {% for error in form.ipv4.errors %}
@@ -51,19 +51,14 @@
                                   Error in field <strong>{{ form.ipv4.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
-                            {% for error in form.port.errors %}
+                            {% for error in form.dns1.errors %}
                                 <div class="alert alert-danger" role="alert">
-                                  Error in field <strong>{{ form.port.label.text }}</strong>: {{ error }}
+                                  Error in field <strong>{{ form.dns1.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
-                            {% for error in form.on_up.errors %}
+                            {% for error in form.dns2.errors %}
                                 <div class="alert alert-danger" role="alert">
-                                  Error in field <strong>{{ form.on_up.label.text }}</strong>: {{ error }}
-                                </div>
-                            {% endfor %}
-                            {% for error in form.on_down.errors %}
-                                <div class="alert alert-danger" role="alert">
-                                  Error in field <strong>{{ form.on_down.label.text }}</strong>: {{ error }}
+                                  Error in field <strong>{{ form.dns2.label.text }}</strong>: {{ error }}
                                 </div>
                             {% endfor %}
                         </div>
@@ -81,44 +76,32 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                {{ form.gateway.label() }}
-                                {{ form.gateway(class="form-control") }}
+                                {{ form.interface.label() }}
+                                {{ form.interface(class="form-control") }}
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-4">
                                 {{ form.ipv4.label() }}
                                 {{ form.ipv4(class="form-control") }}
                             </div>
-                            <div class="form-group col-md-4">
-                                {{ form.port.label() }}
-                                {{ form.port(class="form-control") }}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {{ form.allowed_ips.label() }}
-                                {{ form.allowed_ips(class="form-control") }}
-
-                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                {{ form.on_up.label() }}
-                                {{ form.on_up(class="form-control", rows='5') }}
+                                {{ form.dns1.label() }}
+                                {{ form.dns1(class="form-control") }}
                             </div>
                             <div class="form-group col-md-4">
-                                {{ form.on_down.label() }}
-                                {{ form.on_down(class="form-control", rows='5') }}
+                                {{ form.dns2.label() }}
+                                {{ form.dns2(class="form-control") }}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <div class="custom-control custom-checkbox">
-                                    {{ form.auto(class="custom-control-input") }}
-                                    {{ form.auto.label(class="custom-control-label") }}
+                                    {{ form.nat(class="custom-control-input") }}
+                                    {{ form.nat.label(class="custom-control-label") }}
                                     <span type="button" class="ml-1" data-toggle="popover"
                                         data-placement="top"
-                                        data-content="Automatically start the interface after
-                                         {{ app_name }} starts up.">
+                                        data-content="Whether the peer is behind a NAT network or not.">
                                         <i class="fas fa-question-circle"></i>
                                     </span>
                                 </div>
@@ -137,5 +120,5 @@
 {% endblock %}
 
 {% block additional_scripts %}
-    <script type="module" src="../../static/js/modules/wireguard-iface.mjs"></script>
+    <script type="module" src="../../static/js/modules/wireguard-peer.mjs"></script>
 {% endblock %}
