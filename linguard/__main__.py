@@ -72,7 +72,7 @@ if __name__ == "__main__":
     global_properties.dev_env = True
     # Override log level (although it can be manually edited via UI)
     log_config.level = "debug"
-    log_config.apply()
+    #log_config.apply()
     # Unlike the production scenario, a missing version file is not fatal
     if not release or not commit:
         warning("!! No versioning information provided !!")

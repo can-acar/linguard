@@ -144,7 +144,7 @@ class AddInterfaceForm(FlaskForm):
     port = IntegerField("Listen port", validators=[InterfacePortValidator()],
                         render_kw={"placeholder": "25000", "type": "number"})
 
-    allowed_ips = SelectMultipleField("Allowed IPs", validate_choice=False)
+    allowed_ips = SelectMultipleField("Allowed IPs", validate_choice=False, choices=[])
 
     on_up = TextAreaField("On up")
     on_down = TextAreaField("On down")
@@ -177,7 +177,6 @@ class AddInterfaceForm(FlaskForm):
         new_form = AddInterfaceForm()
         new_form.name.data = form.name.data
         new_form.gateway.choices = cls.get_choices(exclusions=["lo"])
-        new_form.allowed_ips.choices = cls.allowed_gateways()
         new_form.gateway.data = form.gateway.data
         new_form.ipv4.data = form.ipv4.data
         new_form.port.data = form.port.data
@@ -192,10 +191,9 @@ class AddInterfaceForm(FlaskForm):
         form.gateway.choices = cls.get_choices(exclusions=["lo"])
         gw = get_default_gateway()
         form.gateway.data = gw
-        allowed_ips_data = cls.allowed_gateways()
-        allowed_ips_choices = [choice for choice in allowed_ips_data if choice != gw]
-        form.allowed_ips.choices = [(choice, choice) for choice in allowed_ips_choices]
-        form.allowed_ips.data = [choice for choice in allowed_ips_data if choice != gw]
+        allowed_ips_choices = cls.allowed_gateways()
+        form.allowed_ips.choices = allowed_ips_choices
+        form.allowed_ips.data = [choice[0] for choice in allowed_ips_choices]
 
         tries = 0
         max_tries = 100
